@@ -38,6 +38,7 @@
 #include "output/shout_output_plugin.h"
 #include "output/solaris_output_plugin.h"
 #include "output/winmm_output_plugin.h"
+#include "output/android_output_plugin.h"
 
 const struct audio_output_plugin *const audio_output_plugins[] = {
 #ifdef HAVE_SHOUT
@@ -91,6 +92,9 @@ const struct audio_output_plugin *const audio_output_plugins[] = {
 #endif
 #ifdef ENABLE_FFADO_OUTPUT
 	&ffado_output_plugin,
+#endif
+#ifdef ENABLE_ANDROID_OUTPUT
+        &android_output_plugin,
 #endif
 	NULL
 };
