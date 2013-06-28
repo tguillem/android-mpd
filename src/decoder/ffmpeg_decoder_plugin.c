@@ -47,6 +47,8 @@
 #undef G_LOG_DOMAIN
 #define G_LOG_DOMAIN "ffmpeg"
 
+#define AVCODEC_MAX_AUDIO_FRAME_SIZE 192000
+
 static GLogLevelFlags
 level_ffmpeg_to_glib(int level)
 {
