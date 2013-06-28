@@ -41,6 +41,10 @@
 #include <syslog.h>
 #endif
 
+#ifdef HAVE_ANDROID_LOG
+#include <android/log.h>
+#endif
+
 #undef G_LOG_DOMAIN
 #define G_LOG_DOMAIN "log"
 
@@ -212,6 +216,57 @@ log_init_syslog(void)
 
 #endif
 
+#ifdef HAVE_ANDROID_LOG
+
+static int
+glib_to_androidlog_level(GLogLevelFlags log_level)
+{
+	switch (log_level & G_LOG_LEVEL_MASK) {
+	case G_LOG_LEVEL_ERROR:
+		return ANDROID_LOG_ERROR;
+	case G_LOG_LEVEL_CRITICAL:
+		return ANDROID_LOG_FATAL;
+	case G_LOG_LEVEL_WARNING:
+		return ANDROID_LOG_WARN;
+
+	case G_LOG_LEVEL_MESSAGE:
+		return ANDROID_LOG_VERBOSE;
+
+	case G_LOG_LEVEL_INFO:
+		return ANDROID_LOG_INFO;
+
+	case G_LOG_LEVEL_DEBUG:
+		return ANDROID_LOG_DEBUG;
+
+	default:
+		return ANDROID_LOG_INFO;
+	}
+}
+
+static void
+androidlog_log_func(const gchar *log_domain,
+		GLogLevelFlags log_level, const gchar *message,
+		G_GNUC_UNUSED gpointer user_data)
+{
+	if (log_level > log_threshold)
+		return;
+
+	if (log_domain == NULL)
+		log_domain = "";
+
+	__android_log_print(glib_to_androidlog_level(log_level), "mpd", "%s%s%.*s",
+			    log_domain, *log_domain == 0 ? "" : ": ",
+			    chomp_length(message), message);
+}
+
+static void
+log_init_androidlog(void)
+{
+	g_log_set_default_handler(androidlog_log_func, NULL);
+}
+
+#endif
+
 static inline GLogLevelFlags
 parse_log_level(const char *value, unsigned line)
 {
@@ -261,14 +316,24 @@ log_init(bool verbose, bool use_stdout, GError **error_r)
 			log_init_syslog();
 			return true;
 #else
+#ifdef HAVE_ANDROID_LOG
+			log_init_androidlog();
+			return true;
+#else
 			g_set_error(error_r, log_quark(), 0,
 				    "config parameter \"%s\" not found",
 				    CONF_LOG_FILE);
 			return false;
 #endif
+#endif
 #ifdef HAVE_SYSLOG
 		} else if (strcmp(param->value, "syslog") == 0) {
 			log_init_syslog();
+			return true;
+#endif
+#ifdef HAVE_ANDROID_LOG
+		} else if (strcmp(param->value, "androidlog") == 0) {
+			log_init_androidlog();
 			return true;
 #endif
 		} else {
