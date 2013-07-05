@@ -1659,6 +1659,7 @@ echo 'Generating files needed for compilation'
 dnl ---------------------------------------------------------------------------
 dnl Generate files
 dnl ---------------------------------------------------------------------------
+AC_CONFIG_FILES(config.mk)
 AC_CONFIG_FILES(Makefile)
 AC_CONFIG_FILES(doc/doxygen.conf)
 AC_CONFIG_FILES(mpd.service)

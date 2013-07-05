@@ -1,0 +1,5 @@
+# Package Information for pkg-config
+
+Name: SQLite
+Description: SQL database engine
+Version: 3.7.6.2

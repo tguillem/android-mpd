@@ -1,0 +1,5 @@
+# Package Information for pkg-config
+
+Name: libcurl
+Description: Library to transfer files with ftp, http, etc.
+Version: 7.20.1
