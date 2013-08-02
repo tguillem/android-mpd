@@ -32,8 +32,8 @@ LOCAL_SRC_FILES := src/archive_api.c \
 	src/icy_metadata.c \
 	src/input/ffmpeg_input_plugin.c \
 	src/mixer/software_mixer_plugin.c \
-	src/mixer/android_mixer_plugin.c \
-	src/output/android_output_plugin.c \
+	src/mixer/opensles_android_mixer_plugin.c \
+	src/output/opensles_android_output_plugin.c \
 	src/output/null_output_plugin.c \
 	src/icy_server.c \
 	src/pcm_buffer.c \

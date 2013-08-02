@@ -31,6 +31,6 @@ extern const struct mixer_plugin oss_mixer_plugin;
 extern const struct mixer_plugin roar_mixer_plugin;
 extern const struct mixer_plugin pulse_mixer_plugin;
 extern const struct mixer_plugin winmm_mixer_plugin;
-extern const struct mixer_plugin android_mixer_plugin;
+extern const struct mixer_plugin opensles_android_mixer_plugin;
 
 #endif

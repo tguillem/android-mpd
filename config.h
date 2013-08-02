@@ -359,5 +359,5 @@
 /* Define for large files, on AIX-style hosts. */
 /* #undef _LARGE_FILES */
 
-#define ENABLE_ANDROID_OUTPUT 1
+#define ENABLE_OPENSLES_ANDROID_OUTPUT 1
 #define HAVE_ANDROID_LOG 1

@@ -17,15 +17,15 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef MPD_ANDROID_OUTPUT_PLUGIN_H
-#define MPD_ANDROID_OUTPUT_PLUGIN_H
+#ifndef MPD_OPENSLES_ANDROID_OUTPUT_PLUGIN_H
+#define MPD_OPENSLES_ANDROID_OUTPUT_PLUGIN_H
 
 #include <glib.h>
 
-struct android_output;
-extern const struct audio_output_plugin android_output_plugin;
+struct opensles_android_output;
+extern const struct audio_output_plugin opensles_android_output_plugin;
 
-int android_set_volume(struct android_output *ao, unsigned volume);
-int android_get_volume(struct android_output *ao);
+int opensles_android_set_volume(struct opensles_android_output *ao, unsigned volume);
+int opensles_android_get_volume(struct opensles_android_output *ao);
 
 #endif
