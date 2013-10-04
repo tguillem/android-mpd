@@ -62,6 +62,8 @@ opensles_android_mixer_init(void *data, G_GNUC_UNUSED const struct config_param 
 
 	am->output = ao;
 
+	opensles_android_set_mixer(am->output, am);
+
 	return &am->base;
 }
 

@@ -22,10 +22,13 @@
 
 #include <glib.h>
 
-struct opensles_android_output;
 extern const struct audio_output_plugin opensles_android_output_plugin;
+
+struct opensles_android_output;
+struct opensles_android_mixer;
 
 int opensles_android_set_volume(struct opensles_android_output *ao, unsigned volume);
 int opensles_android_get_volume(struct opensles_android_output *ao);
+int opensles_android_set_mixer(struct opensles_android_output *ao, struct opensles_android_mixer *am);
 
 #endif

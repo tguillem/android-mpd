@@ -61,6 +61,7 @@ struct opensles_android_output {
 	struct audio_output base;
 
 	int volume;
+	struct opensles_android_mixer *mixer;
 
 	pthread_mutex_t	lock;
 	pthread_cond_t	cond;
@@ -205,7 +206,6 @@ opensles_android_init(const struct config_param *param, GError **error)
 
 	pthread_mutex_init(&ao->lock, NULL);
 	pthread_cond_init(&ao->cond, NULL);
-	ao->volume = 100;
 
 	result = symbols.slCreateEngine(&ao->engineObject, 0, NULL, 0, NULL, NULL);
 	RESULT_CHECK("Failed to create engine");
@@ -464,6 +464,11 @@ opensles_android_set_volume(struct opensles_android_output *ao, unsigned volume)
 
 	pthread_mutex_lock(&ao->lock);
 
+	if (!ao->mixer) {
+		pthread_mutex_unlock(&ao->lock);
+		return -1;
+	}
+
 	ao->volume = volume;
 
 	if (volume != 0) {
@@ -492,10 +497,20 @@ opensles_android_get_volume(struct opensles_android_output *ao)
 	int ret = -1;
 
 	pthread_mutex_lock(&ao->lock);
-	ret = ao->volume;
+	if (ao->mixer)
+		ret = ao->volume;
 	pthread_mutex_unlock(&ao->lock);
 
 	return ret;
+}
+
+int
+opensles_android_set_mixer(struct opensles_android_output *ao, struct opensles_android_mixer *am)
+{
+	pthread_mutex_lock(&ao->lock);
+	ao->volume = 100;
+	ao->mixer = am;
+	pthread_mutex_unlock(&ao->lock);
 }
 
 const struct audio_output_plugin opensles_android_output_plugin = {
