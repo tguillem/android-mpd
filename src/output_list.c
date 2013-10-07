@@ -38,6 +38,7 @@
 #include "output/shout_output_plugin.h"
 #include "output/solaris_output_plugin.h"
 #include "output/winmm_output_plugin.h"
+#include "output/audiotrack_output_plugin.h"
 #include "output/opensles_android_output_plugin.h"
 
 const struct audio_output_plugin *const audio_output_plugins[] = {
@@ -92,6 +93,9 @@ const struct audio_output_plugin *const audio_output_plugins[] = {
 #endif
 #ifdef ENABLE_FFADO_OUTPUT
 	&ffado_output_plugin,
+#endif
+#ifdef ENABLE_AUDIOTRACK_OUTPUT
+        &audiotrack_output_plugin,
 #endif
 #ifdef ENABLE_OPENSLES_ANDROID_OUTPUT
         &opensles_android_output_plugin,

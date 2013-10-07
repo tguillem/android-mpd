@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2003-2011 The Music Player Daemon Project
+ * Copyright (C) 2013 Thomas Guillem
  * http://www.musicpd.org
  *
  * This program is free software; you can redistribute it and/or modify
@@ -17,21 +17,17 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-/** \file
- *
- * This header provides "extern" declarations for all mixer plugins.
- */
+#ifndef MPD_ANDROID_OUTPUT_PLUGIN_H
+#define MPD_ANDROID_OUTPUT_PLUGIN_H
 
-#ifndef MPD_MIXER_LIST_H
-#define MPD_MIXER_LIST_H
+#include <glib.h>
 
-extern const struct mixer_plugin software_mixer_plugin;
-extern const struct mixer_plugin alsa_mixer_plugin;
-extern const struct mixer_plugin oss_mixer_plugin;
-extern const struct mixer_plugin roar_mixer_plugin;
-extern const struct mixer_plugin pulse_mixer_plugin;
-extern const struct mixer_plugin winmm_mixer_plugin;
-extern const struct mixer_plugin opensles_android_mixer_plugin;
-extern const struct mixer_plugin audiotrack_mixer_plugin;
+struct audiotrack_output;
+struct audiotrack_mixer;
+extern const struct audio_output_plugin audiotrack_output_plugin;
+
+int audiotrack_set_volume(struct audiotrack_output *ao, unsigned volume);
+int audiotrack_get_volume(struct audiotrack_output *ao);
+int audiotrack_set_mixer(struct audiotrack_output *ao, struct audiotrack_mixer *am);
 
 #endif
