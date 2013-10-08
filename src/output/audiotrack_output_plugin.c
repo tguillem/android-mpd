@@ -289,9 +289,6 @@ audiotrack_open(struct audio_output *audio_output, struct audio_format *audio_fo
 	case SAMPLE_FORMAT_S16:
 		format = AUDIO_FORMAT_PCM_16_BIT;
 		break;
-	case SAMPLE_FORMAT_S32:
-		format = AUDIO_FORMAT_PCM_32_BIT;
-		break;
 	default:
 		audio_format->format = SAMPLE_FORMAT_S16;
 		format = AUDIO_FORMAT_PCM_16_BIT;
